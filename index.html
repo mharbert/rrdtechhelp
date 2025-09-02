@@ -75,8 +75,8 @@
         <section class="mb-16">
             <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#CC333F] mb-4 text-center">Which Report Fits Your Needs?</h2>
-                <p class="text-center text-gray-600 mb-8">Each report offers a unique lens into student data. This chart compares the primary focus of each tool, from broad district-level views to detailed individual student analysis. Use it to quickly find the right report for your specific analytical goal.</p>
-                <div class="chart-container mx-auto h-96 md:h-[500px] max-w-2xl">
+                <p class="text-center text-gray-600 mb-8">Each report offers a unique lens into student data. This chart shows whether a report's primary strength is analyzing an individual student, the whole class, or comparing to the school and district. Use it to quickly find the right tool for your goal.</p>
+                <div class="chart-container mx-auto h-96 md:h-[500px] max-w-3xl">
                     <canvas id="reportFocusChart"></canvas>
                 </div>
             </div>
@@ -275,63 +275,45 @@
         }
     };
     
+    const { scales, ...commonOptionsNoScales } = commonChartOptions;
+    
     new Chart(document.getElementById('reportFocusChart'), {
-        type: 'radar',
+        type: 'bar',
         data: {
-            labels: ['Individual Student Focus', 'Class / Group Trends', 'Standards Mastery', 'Test Item Analysis', 'School / District Comparison'].map(l => wrapLabels(l, 16)),
+            labels: ['Baseball Card', 'Comparative Results', 'Scoreboard', 'Standards Report', 'Student Detail', 'Student Item Analysis'].map(l => wrapLabels(l, 16)),
             datasets: [
                 {
-                    label: 'Baseball Card',
-                    data: [5, 4, 3, 1, 4],
-                    backgroundColor: 'rgba(0, 160, 176, 0.2)',
-                    borderColor: chartColors.blue,
-                    pointBackgroundColor: chartColors.blue
+                    label: 'Individual Student Focus',
+                    data: [5, 1, 1, 3, 5, 2],
+                    backgroundColor: chartColors.blue,
                 },
                 {
-                    label: 'Comparative Results',
-                    data: [2, 4, 5, 4, 5],
-                    backgroundColor: 'rgba(106, 74, 60, 0.2)',
-                    borderColor: chartColors.brown,
-                    pointBackgroundColor: chartColors.brown
+                    label: 'Whole Class Focus',
+                    data: [3, 4, 3, 5, 1, 5],
+                    backgroundColor: chartColors.orange,
                 },
                 {
-                    label: 'Scoreboard Report',
-                    data: [1, 3, 2, 1, 5],
-                    backgroundColor: 'rgba(204, 51, 63, 0.2)',
-                    borderColor: chartColors.red,
-                    pointBackgroundColor: chartColors.red
-                },
-                {
-                    label: 'Standards Report',
-                    data: [3, 5, 5, 2, 2],
-                    backgroundColor: 'rgba(237, 201, 81, 0.2)',
-                    borderColor: chartColors.yellow,
-                    pointBackgroundColor: chartColors.yellow
-                },
-                 {
-                    label: 'Student Detail',
-                    data: [5, 1, 4, 2, 2],
-                    backgroundColor: 'rgba(52, 211, 153, 0.2)',
-                    borderColor: '#34D399',
-                    pointBackgroundColor: '#34D399'
-                },
-                {
-                    label: 'Student Item Analysis',
-                    data: [2, 5, 4, 5, 3],
-                    backgroundColor: 'rgba(235, 104, 65, 0.2)',
-                    borderColor: chartColors.orange,
-                    pointBackgroundColor: chartColors.orange
+                    label: 'School/District Comparison',
+                    data: [3, 5, 5, 2, 1, 3],
+                    backgroundColor: chartColors.yellow,
                 }
             ]
         },
         options: {
             ...commonChartOptions,
             scales: {
-                r: {
-                    angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                    pointLabels: { font: { size: 12, family: 'Inter' } },
-                    ticks: { backdropColor: 'transparent', color: '#6A4A3C' }
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            if (value === 5) return 'High Focus';
+                            if (value === 3) return 'Medium Focus';
+                            if (value === 1) return 'Low Focus';
+                            return null;
+                        }
+                    }
                 }
             }
         }
