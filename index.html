@@ -426,6 +426,42 @@
     });
 
 </script>
+
+<!-- This is a self-contained, centered button -->
+<style>
+    /* 1. This rule applies the centering to our new container */
+    .button-container {
+        text-align: center; /* This is the magic property */
+    }
+
+    /* 2. This is your existing button style (no changes needed) */
+    .gdoc-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #4285F4;
+        color: white;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .gdoc-button:hover {
+        background-color: #3367D6;
+        transform: translateY(-2px);
+    }
+</style>
+
+<!-- 3. Wrap your button in the new container div -->
+<div class="button-container">
+    <a href="https://docs.google.com/document/d/1RfAXhoFwuTyuRxGM8TivmRZpZaFROqcxRQHuRzFTb7k/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="gdoc-button">
+        Access the Full Guide
+    </a>
+</div>
 </body>
 </html>
 
